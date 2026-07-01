@@ -70,7 +70,6 @@ const REPORT_PORTAL_DATA = {
         { name: "FORCE DEPORTES", meta: "Cuenta listada" },
         { name: "GRUPO GUIPALBAR SAS", meta: "Cuenta listada" },
         { name: "GRUPO QUIMAR 2025", meta: "Cuenta listada" },
-        { name: "LA COMPAÑIA", meta: "Cuenta listada" },
         { name: "MARCAS MARKET", meta: "Cuenta listada" },
         { name: "Margoth Reposteria", meta: "Cuenta listada" },
         { name: "MASCOVET", meta: "Cuenta listada" },
