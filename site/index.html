@@ -56,14 +56,14 @@
             </label>
 
             <label class="field">
-              <span class="field-label">PIN de 4 digitos</span>
+              <span class="field-label">Clave del cliente</span>
               <input
                 id="client-pin"
                 class="field-control"
                 type="password"
-                inputmode="numeric"
-                maxlength="4"
-                placeholder="0000"
+                inputmode="text"
+                maxlength="12"
+                placeholder="01-02"
                 autocomplete="off"
               />
             </label>
@@ -71,6 +71,16 @@
             <button type="submit" class="primary-button">Abrir panel</button>
             <p id="access-feedback" class="access-feedback" aria-live="polite"></p>
           </form>
+        </section>
+
+        <section class="panel catalog-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Cartera visible</p>
+              <h2>Clientes y archivos</h2>
+            </div>
+          </div>
+          <div id="portfolio-sections" class="portfolio-sections"></div>
         </section>
 
         <section class="panel client-panel hidden" id="client-panel">

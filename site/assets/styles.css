@@ -153,6 +153,10 @@ body::before {
   line-height: 1.6;
 }
 
+.catalog-panel {
+  overflow: hidden;
+}
+
 .portal-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -252,6 +256,95 @@ body::before {
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
+}
+
+.portfolio-sections {
+  display: grid;
+  gap: 14px;
+}
+
+.portfolio-group {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(63, 42, 20, 0.08);
+}
+
+.portfolio-heading {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.08rem;
+  letter-spacing: -0.03em;
+}
+
+.portfolio-caption {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.portfolio-list {
+  display: grid;
+  gap: 10px;
+}
+
+.portfolio-item {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 252, 246, 0.96), rgba(255, 247, 237, 0.84));
+  border: 1px solid rgba(63, 42, 20, 0.08);
+}
+
+.portfolio-item-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.portfolio-name {
+  font-size: 0.97rem;
+  font-weight: 800;
+}
+
+.portfolio-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.77rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.portfolio-badge--live {
+  color: #fff8f1;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-strong) 100%);
+}
+
+.portfolio-badge--listed {
+  color: var(--accent);
+  background: rgba(36, 85, 82, 0.12);
+}
+
+.portfolio-badge--archive {
+  color: var(--muted);
+  background: rgba(106, 82, 67, 0.12);
+}
+
+.portfolio-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 .summary-chip {
