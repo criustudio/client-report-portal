@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informe Redes Sociales Sr. Miyagi - Instagram y TikTok</title>
+  <style>
+    :root {
+      --bg: #f6efe5;
+      --paper: #fffaf4;
+      --ink: #1f1c18;
+      --muted: #6d6257;
+      --line: rgba(31, 28, 24, 0.12);
+      --brand: #c84d30;
+      --brand-dark: #8f2f1c;
+      --accent: #f0b25d;
+      --positive: #2e8b57;
+      --warning: #d48a26;
+      --shadow: 0 18px 44px rgba(72, 45, 26, 0.12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Aptos", "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(240, 178, 93, 0.38), transparent 32%),
+        radial-gradient(circle at top right, rgba(200, 77, 48, 0.22), transparent 28%),
+        linear-gradient(180deg, #f9f3ea 0%, #f3eadf 45%, #efe6da 100%);
+    }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 32px 20px 60px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 36px;
+      background:
+        linear-gradient(135deg, rgba(200, 77, 48, 0.96), rgba(143, 47, 28, 0.96)),
+        linear-gradient(180deg, #8f2f1c, #c84d30);
+      color: #fff7ef;
+      box-shadow: var(--shadow);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -35% auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 178, 93, 0.35), rgba(240, 178, 93, 0) 72%);
+    }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255, 247, 239, 0.16);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin: 0; }
+    .hero h1 {
+      max-width: 860px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+    .hero .lead {
+      max-width: 860px;
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255, 247, 239, 0.92);
+    }
+    .hero-grid, .kpi-grid, .two-col, .three-col {
+      display: grid;
+      gap: 16px;
+    }
+    .hero-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 26px;
+    }
+    .kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .hero-stat {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 247, 239, 0.12);
+      backdrop-filter: blur(4px);
+    }
+    .hero-stat .label,
+    .metric-label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 247, 239, 0.72);
+    }
+    .metric-label { color: var(--muted); }
+    .hero-stat .value,
+    .metric-value {
+      margin-top: 6px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .hero-stat .sub,
+    .metric-note,
+    .small {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .hero-stat .sub { color: rgba(255, 247, 239, 0.84); }
+    .section {
+      margin-top: 24px;
+      padding: 26px;
+      background: rgba(255, 250, 244, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-head p { max-width: 760px; color: var(--muted); line-height: 1.55; }
+    .card {
+      padding: 18px;
+      border-radius: 20px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .metric-list { display: grid; gap: 10px; margin-top: 14px; }
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .metric-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge.good { background: rgba(46, 139, 87, 0.14); color: #206743; }
+    .badge.warn { background: rgba(212, 138, 38, 0.14); color: #8f5710; }
+    .badge.neutral { background: rgba(31, 28, 24, 0.08); color: var(--muted); }
+    .callout {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(240, 178, 93, 0.12);
+      border: 1px solid rgba(240, 178, 93, 0.4);
+      line-height: 1.55;
+    }
+    .callout.good {
+      background: rgba(46, 139, 87, 0.12);
+      border-color: rgba(46, 139, 87, 0.24);
+    }
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    @media (max-width: 960px) {
+      .hero-grid, .kpi-grid, .two-col, .three-col { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Informe Redes Sociales · Sr. Miyagi</div>
+      <h1>Instagram, TikTok y lectura comercial del contenido</h1>
+      <p class="lead">
+        Este reporte consolida lo confirmado directamente en las sesiones abiertas de <strong>Instagram</strong> y <strong>TikTok</strong> al <strong>1 de julio de 2026</strong>.
+        El rango de lectura principal corresponde a <strong>los ultimos 30 dias</strong> en Instagram y <strong>los ultimos 28 dias</strong> en TikTok.
+      </p>
+
+      <div class="hero-grid">
+        <div class="hero-stat">
+          <div class="label">Instagram</div>
+          <div class="value">32.289</div>
+          <div class="sub">Visualizaciones del ultimo mes</div>
+        </div>
+        <div class="hero-stat">
+          <div class="label">TikTok</div>
+          <div class="value">1,2 mil</div>
+          <div class="sub">Vistas de video en los ultimos 28 dias</div>
+        </div>
+        <div class="hero-stat">
+          <div class="label">Seguidores</div>
+          <div class="value">16.390</div>
+          <div class="sub">15.826 en Instagram + 564 en TikTok</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>1. 📸 Instagram</h2>
+          <p>La cuenta muestra un rendimiento fuerte en visibilidad organica del ultimo mes, con el peso principal en <strong>reels</strong> y apoyo continuo de <strong>historias</strong>.</p>
+        </div>
+        <div class="badge good">Cuenta profesional activa</div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="card">
+          <div class="metric-label">Visualizaciones</div>
+          <div class="metric-value">32.289</div>
+          <div class="metric-note">Lectura total del contenido del ultimo mes.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Cuentas alcanzadas</div>
+          <div class="metric-value">9.051</div>
+          <div class="metric-note">53,8 % no seguidores y 46,2 % seguidores.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Interacciones</div>
+          <div class="metric-value">704</div>
+          <div class="metric-note">319 cuentas interactuaron con el contenido.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Actividad de perfil</div>
+          <div class="metric-value">2.828</div>
+          <div class="metric-note">1.955 visitas al perfil y 873 toques al enlace.</div>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Que formato movio mas resultado</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Reels en visualizaciones</span><strong>59,9 %</strong></div>
+            <div class="metric-row"><span>Historias en visualizaciones</span><strong>34,6 %</strong></div>
+            <div class="metric-row"><span>Publicaciones en visualizaciones</span><strong>5,4 %</strong></div>
+            <div class="metric-row"><span>Reels en interacciones</span><strong>88,4 %</strong></div>
+            <div class="metric-row"><span>Historias en interacciones</span><strong>10,4 %</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Piezas destacadas del mes</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>15 de junio</span><strong>4,1 mil vistas · 202 interacciones</strong></div>
+            <div class="metric-row"><span>30 de junio</span><strong>1,4 mil vistas · 21 interacciones</strong></div>
+            <div class="metric-row"><span>2 de junio</span><strong>1,3 mil vistas · 60 interacciones</strong></div>
+            <div class="metric-row"><span>23 de junio</span><strong>574 vistas · 21 interacciones</strong></div>
+            <div class="metric-row"><span>Historias top</span><strong>304 a 186 vistas</strong></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="three-col" style="margin-top: 16px;">
+        <article class="card">
+          <div class="metric-label">Seguidores actuales</div>
+          <div class="metric-value">15.826</div>
+          <div class="metric-note">Base actual de la cuenta al cierre de la revision.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Accion de negocio</div>
+          <div class="metric-value">873</div>
+          <div class="metric-note">Toques al enlace externo en el periodo.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Lectura comercial</div>
+          <div class="metric-value">Reels</div>
+          <div class="metric-note">El formato corto es el que mejor empuja descubrimiento e interaccion.</div>
+        </article>
+      </div>
+
+      <div class="callout good">
+        <strong>Feedback principal:</strong> Instagram esta funcionando mejor como vitrina de descubrimiento y deseo visual.
+        El contenido que mas responde combina <strong>producto claro</strong>, <strong>oferta puntual</strong> y <strong>tono directo</strong>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>2. 🎵 TikTok</h2>
+          <p>TikTok muestra una base mas pequena, pero da una lectura muy util de <strong>busqueda</strong>, <strong>demografia</strong> y respuesta del contenido reciente.</p>
+        </div>
+        <div class="badge warn">Ultimos 28 dias</div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="card">
+          <div class="metric-label">Vistas de video</div>
+          <div class="metric-value">1,2 mil</div>
+          <div class="metric-note">Caida frente al periodo anterior: -92,6 %.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Visitas al perfil</div>
+          <div class="metric-value">11</div>
+          <div class="metric-note">Variacion frente al periodo anterior: -69,4 %.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Interacciones</div>
+          <div class="metric-value">19</div>
+          <div class="metric-note">17 me gusta, 2 compartidos y 0 comentarios.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Seguidores netos</div>
+          <div class="metric-value">-2</div>
+          <div class="metric-note">Total actual de seguidores: 564.</div>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Contenido reciente del periodo</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Ramen Miyagi</span><strong>269 vistas en 28 dias · 270 total</strong></div>
+            <div class="metric-row"><span>All You Can Eat Manga</span><strong>228 vistas en 28 dias · 800 total</strong></div>
+            <div class="metric-row"><span>Publicaciones visibles del periodo</span><strong>2 videos</strong></div>
+            <div class="metric-row"><span>Mejor pieza historica que sigue traccionando</span><strong>Sushi Master · 90K total</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>De donde llega el trafico</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Para ti</span><strong>69,5 %</strong></div>
+            <div class="metric-row"><span>Buscar</span><strong>26,2 %</strong></div>
+            <div class="metric-row"><span>Perfil personal</span><strong>4,3 %</strong></div>
+            <div class="metric-row"><span>Momento de mayor actividad</span><strong>30 de junio · 6:00 p. m.</strong></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="three-col" style="margin-top: 16px;">
+        <article class="card">
+          <div class="metric-label">Consultas de busqueda</div>
+          <div class="metric-value">Bocagrande</div>
+          <div class="metric-note">Aparecen busquedas ligadas a Bocagrande, sushi, Miyagi y planes en la zona.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Audiencia principal</div>
+          <div class="metric-value">25-44</div>
+          <div class="metric-note">Suma 63,5 % de la audiencia visible en TikTok.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Ubicacion dominante</div>
+          <div class="metric-value">Colombia</div>
+          <div class="metric-note">83 % de la audiencia visible de TikTok esta en Colombia.</div>
+        </article>
+      </div>
+
+      <div class="callout">
+        <strong>Feedback principal:</strong> TikTok todavia no esta escalando como Instagram, pero sirve para entender
+        <strong>intencion de busqueda</strong> y reforzar contenido con potencial local.
+        La oportunidad esta en producir piezas mas frecuentes y mas cortas alrededor de <strong>promociones</strong>, <strong>humor</strong> y <strong>eventos</strong>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>3. 📣 Lectura comercial para el siguiente mes</h2>
+          <p>El siguiente paso no es solo publicar mas. Es publicar mejor, responder mas rapido y mover cada red hacia venta.</p>
+        </div>
+      </div>
+
+      <div class="three-col">
+        <article class="card">
+          <h3>Promocion diaria visible</h3>
+          <p class="small">Mantener piezas cortas de promo del dia en Instagram y TikTok, con CTA directo a pedir, reservar o escribir.</p>
+        </article>
+        <article class="card">
+          <h3>Primer mensaje automatico</h3>
+          <p class="small">Implementar una herramienta intermedia que responda al instante, baje la friccion y capture datos del contacto.</p>
+        </article>
+        <article class="card">
+          <h3>Calendario orientado a venta</h3>
+          <p class="small">Separar contenidos en tres lineas: producto, promo/evento y prueba social. Cada semana debe empujar al menos una venta clara.</p>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Acciones puntuales de marketing</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Instagram</span><strong>3 a 4 reels semanales con promo y producto</strong></div>
+            <div class="metric-row"><span>TikTok</span><strong>2 a 3 videos semanales cortos y editados para busqueda</strong></div>
+            <div class="metric-row"><span>Historias</span><strong>Activar prueba social, horarios pico y CTA a WhatsApp</strong></div>
+            <div class="metric-row"><span>Eventos</span><strong>Apoyar cada evento con teaser, recordatorio y cierre</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Nota de fuente</h3>
+          <p class="small">
+            En esta revision se encontraron abiertas las sesiones de <strong>Instagram</strong> y <strong>TikTok</strong>.
+            No se detecto una pestana abierta de <strong>Pinterest</strong> o <strong>LinkedIn</strong> durante esta pasada.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer">
+      Fuente de datos: sesiones abiertas revisadas en Instagram y TikTok al 1 de julio de 2026.
+      Los datos de Instagram provienen del panel profesional del ultimo mes.
+      Los datos de TikTok provienen de TikTok Studio en el rango de ultimos 28 dias.
+    </div>
+  </div>
+</body>
+</html>

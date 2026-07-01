@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal de informes</title>
+    <meta
+      name="description"
+      content="Portal simple para consultar informes mensuales por cliente."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Portal privado</p>
+          <h1>Informes mensuales en un solo lugar</h1>
+          <p class="lede">
+            Selecciona el cliente, ingresa su PIN de 4 digitos y abre el historial
+            de reportes en HTML o PDF.
+          </p>
+        </div>
+        <div class="hero-card">
+          <div class="hero-stat">
+            <span class="hero-stat-value" id="hero-client-count">1</span>
+            <span class="hero-stat-label">cliente activo</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-value" id="hero-report-count">3</span>
+            <span class="hero-stat-label">documentos disponibles</span>
+          </div>
+          <p class="hero-note">
+            Este acceso es ligero y esta pensado para consulta rapida del cliente.
+          </p>
+        </div>
+      </section>
+
+      <main class="portal-layout">
+        <section class="panel access-panel">
+          <div class="panel-header">
+            <p class="panel-kicker">Acceso</p>
+            <h2>Entrar al historial</h2>
+          </div>
+
+          <form id="access-form" class="access-form">
+            <label class="field">
+              <span class="field-label">Cliente</span>
+              <select id="client-select" class="field-control"></select>
+            </label>
+
+            <label class="field">
+              <span class="field-label">PIN de 4 digitos</span>
+              <input
+                id="client-pin"
+                class="field-control"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="0000"
+                autocomplete="off"
+              />
+            </label>
+
+            <button type="submit" class="primary-button">Abrir panel</button>
+            <p id="access-feedback" class="access-feedback" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel client-panel hidden" id="client-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Historial</p>
+              <h2 id="client-name">Cliente</h2>
+            </div>
+            <button id="sign-out" class="ghost-button" type="button">Cerrar</button>
+          </div>
+
+          <div class="client-summary" id="client-summary"></div>
+          <div class="timeline" id="timeline"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

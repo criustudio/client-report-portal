@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informe Grafico Sr. Miyagi - Google Ads, Meta Ads y TripAdvisor</title>
+  <style>
+    :root {
+      --bg: #f6efe5;
+      --paper: #fffaf4;
+      --ink: #1f1c18;
+      --muted: #6d6257;
+      --line: rgba(31, 28, 24, 0.12);
+      --brand: #c84d30;
+      --brand-dark: #8f2f1c;
+      --accent: #f0b25d;
+      --positive: #2e8b57;
+      --warning: #d48a26;
+      --danger: #bf3f3f;
+      --shadow: 0 18px 44px rgba(72, 45, 26, 0.12);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Aptos", "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(240, 178, 93, 0.38), transparent 32%),
+        radial-gradient(circle at top right, rgba(200, 77, 48, 0.22), transparent 28%),
+        linear-gradient(180deg, #f9f3ea 0%, #f3eadf 45%, #efe6da 100%);
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 36px;
+      background:
+        linear-gradient(135deg, rgba(200, 77, 48, 0.96), rgba(143, 47, 28, 0.96)),
+        linear-gradient(180deg, #8f2f1c, #c84d30);
+      color: #fff7ef;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -35% auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 178, 93, 0.35), rgba(240, 178, 93, 0) 72%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255, 247, 239, 0.16);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .hero h1 {
+      max-width: 820px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+
+    .hero .lead {
+      max-width: 860px;
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255, 247, 239, 0.92);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .hero-stat {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 247, 239, 0.12);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-stat .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255, 247, 239, 0.72);
+    }
+
+    .hero-stat .value {
+      margin-top: 6px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .hero-stat .sub {
+      margin-top: 4px;
+      font-size: 13px;
+      color: rgba(255, 247, 239, 0.84);
+    }
+
+    .section {
+      margin-top: 24px;
+      padding: 26px;
+      background: rgba(255, 250, 244, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-head p {
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .kpi-grid,
+    .two-col,
+    .three-col,
+    .review-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .kpi-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .two-col {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .three-col {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .review-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: 20px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .metric-value {
+      margin-top: 6px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .metric-note {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.warn { background: rgba(212, 138, 38, 0.14); color: #8f5710; }
+    .badge.good { background: rgba(46, 139, 87, 0.14); color: #206743; }
+    .badge.risk { background: rgba(191, 63, 63, 0.14); color: #8f2a2a; }
+    .badge.neutral { background: rgba(31, 28, 24, 0.08); color: var(--muted); }
+
+    .metric-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .metric-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .bar-cluster {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .bar-item {
+      display: grid;
+      gap: 6px;
+    }
+
+    .bar-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    .track {
+      width: 100%;
+      height: 14px;
+      background: #eadfce;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand), #dd7f4d);
+    }
+
+    .fill.gold {
+      background: linear-gradient(90deg, #c68d2c, #f0b25d);
+    }
+
+    .fill.green {
+      background: linear-gradient(90deg, #2c7a51, #49a26f);
+    }
+
+    .stack {
+      display: flex;
+      width: 100%;
+      height: 18px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e9e0d2;
+      margin-top: 10px;
+    }
+
+    .seg-one { background: #bf3f3f; }
+    .seg-two { background: #d67a2a; }
+    .seg-three { background: #dcb43e; }
+    .seg-four { background: #6aa16d; }
+    .seg-five { background: #2e8b57; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .legend i {
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      border-radius: 50%;
+    }
+
+    .callout {
+      padding: 16px 18px;
+      border-radius: 18px;
+      line-height: 1.55;
+    }
+
+    .callout.warn {
+      background: rgba(212, 138, 38, 0.1);
+      border: 1px solid rgba(212, 138, 38, 0.22);
+    }
+
+    .callout.risk {
+      background: rgba(191, 63, 63, 0.09);
+      border: 1px solid rgba(191, 63, 63, 0.18);
+    }
+
+    .quote {
+      margin-top: 12px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--brand);
+      background: rgba(200, 77, 48, 0.06);
+      color: #473b31;
+      line-height: 1.55;
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .footer {
+      margin-top: 24px;
+      padding: 18px 22px;
+      border-radius: 20px;
+      background: rgba(31, 28, 24, 0.88);
+      color: rgba(255, 250, 244, 0.9);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .kpi-grid,
+      .two-col,
+      .three-col,
+      .review-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        padding: 18px 14px 40px;
+      }
+
+      .hero,
+      .section {
+        padding: 20px;
+      }
+
+      .hero-grid,
+      .kpi-grid,
+      .two-col,
+      .three-col,
+      .review-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Informe Grafico · Sr. Miyagi</div>
+      <h1>Informe ejecutivo de Google Ads, Meta Ads, TripAdvisor y reputacion local</h1>
+      <p class="lead">
+        Este reporte consolida lo confirmado en <strong>Google Ads</strong>, <strong>Meta Ads</strong>, <strong>TripAdvisor</strong> y Zernio al <strong>1 de julio de 2026</strong>.
+        La campana de Ads se reviso en el rango <strong>1 al 30 de junio de 2026</strong>.
+        Las resenas se revisaron en el rango <strong>1 de junio al 1 de julio de 2026</strong>, inclusive.
+        La lectura se enfoca en resultado comercial: <strong>gasto por canal, acciones, ventas, feedback y siguientes pasos</strong>.
+      </p>
+
+      <div class="hero-grid">
+        <div class="hero-stat">
+          <div class="label">Google Ads</div>
+          <div class="value">900.000 COP</div>
+          <div class="sub">Gasto reportado para Google, <strong>sin IVA</strong></div>
+        </div>
+        <div class="hero-stat">
+          <div class="label">Meta Ads</div>
+          <div class="value">677.915 COP</div>
+          <div class="sub">Valor ajustado por campanas, <strong>sin IVA</strong></div>
+        </div>
+        <div class="hero-stat">
+          <div class="label">Google + Meta</div>
+          <div class="value">1.877.719 COP</div>
+          <div class="sub">Total de pauta del periodo <strong>con IVA</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>1. 🔎 Google Ads</h2>
+          <p>Este bloque corresponde solo a <strong>Google Ads</strong>. En el informe se toma <strong>900.000 COP sin IVA</strong> como gasto final del canal y se ignora el valor intermedio de la plataforma para fines de presentacion.</p>
+        </div>
+        <div class="badge good">Foco en conversion local</div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="card">
+          <div class="metric-label">Gasto Google</div>
+          <div class="metric-value">900.000 COP</div>
+          <div class="metric-note">Valor reportado para Google Ads. <strong>No incluye IVA</strong>.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Como llegar</div>
+          <div class="metric-value">397</div>
+          <div class="metric-note">Es la conversion local mas importante del periodo.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Costo por conversion</div>
+          <div class="metric-value">2.267 COP</div>
+          <div class="metric-note">Ajustado sobre <strong>900.000 COP</strong> y <strong>397</strong> conversiones.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Gasto con IVA</div>
+          <div class="metric-value">1.071.000 COP</div>
+          <div class="metric-note">Referencia contable de Google con <strong>19 %</strong> de IVA.</div>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Base operativa y ajuste aplicado</h3>
+          <div class="metric-value" style="font-size: 42px;">424 COP</div>
+          <p class="metric-note">
+            <strong>CPC medio observado en la plataforma de Google Ads.</strong>
+            Para esta correccion, el ajuste se aplico al <strong>costo por conversion</strong> y no al CPC.
+          </p>
+          <div class="metric-list">
+            <div class="metric-row"><span>Gasto final reportado</span><strong>900.000 COP</strong></div>
+            <div class="metric-row"><span>Clics totales</span><strong>1.180</strong></div>
+            <div class="metric-row"><span>Cobertura</span><strong>24.039 impresiones</strong></div>
+            <div class="metric-row"><span>Tasa de conversion</span><strong>33,64 %</strong></div>
+            <div class="metric-row"><span>Dispositivo dominante</span><strong>Movil</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Acciones locales confirmadas</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Visitas a tienda</span><strong>47</strong></div>
+            <div class="metric-row"><span>Visitas al sitio web</span><strong>53</strong></div>
+            <div class="metric-row"><span>Clics de llamada</span><strong>22</strong></div>
+            <div class="metric-row"><span>Vistas del menu</span><strong>164</strong></div>
+            <div class="metric-row"><span>Otras interacciones locales</span><strong>1.824</strong></div>
+          </div>
+          <div class="callout good" style="margin-top: 18px;">
+            <strong>Dato importante:</strong> estos resultados se validaron cruzando <strong>Objetivos</strong> y
+            <strong>Tiendas</strong> dentro de Google Ads.
+          </div>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 16px;">
+        <article class="card">
+          <h3>🔑 Palabras clave que mejor respondieron</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Restaurante para cenar en Cartagena</span><strong>33 conv. · 76,74 %</strong></div>
+            <div class="metric-row"><span>Restaurante de sushi cerca</span><strong>116 clics · 29 conv.</strong></div>
+            <div class="metric-row"><span>Restaurantes Bocagrande Cartagena</span><strong>29 conv. · 52 clics</strong></div>
+            <div class="metric-row"><span>Restaurantes Bocagrande Cartagena de Indias</span><strong>24 conv.</strong></div>
+            <div class="metric-row"><span>Restaurantes en Bocagrande Cartagena</span><strong>19 conv.</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>💬 Feedback que deja Google</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Intencion mas fuerte</span><strong>Cenar + sushi + ubicacion</strong></div>
+            <div class="metric-row"><span>Zona que mas aparece en busqueda</span><strong>Bocagrande / Cartagena</strong></div>
+            <div class="metric-row"><span>Accion final mas fuerte</span><strong>Manga convierte mejor en visita</strong></div>
+            <div class="metric-row"><span>Momento mas valioso</span><strong>11:00 a 13:00</strong></div>
+          </div>
+          <div class="callout warn" style="margin-top: 14px;">
+            Lectura practica: la gente busca <strong>restaurante para cenar</strong>, <strong>sushi cerca</strong> y
+            opciones en <strong>Bocagrande</strong>, pero la sede de <strong>Manga</strong> es la que termina capturando
+            la mayor parte de <strong>Como llegar</strong>.
+          </div>
+        </article>
+      </div>
+
+      <div class="review-grid" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Desglose por sede · Manga</h3>
+          <p class="small">Google Ads lo muestra como <strong>Sr. Miyagi Asian Fusion</strong> en la direccion de Manga.</p>
+          <div class="metric-list">
+            <div class="metric-row"><span>Cobertura local (impresiones)</span><strong>16.347</strong></div>
+            <div class="metric-row"><span>Visitas a tienda</span><strong>27</strong></div>
+            <div class="metric-row"><span>Clics de llamada</span><strong>16</strong></div>
+            <div class="metric-row"><span>Como llegar en coche</span><strong>320</strong></div>
+            <div class="metric-row"><span>Visitas al sitio web</span><strong>38</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Desglose por sede · Bocagrande</h3>
+          <p class="small">En Google Ads esta fila aparece con el mismo nombre comercial, pero con la direccion de Bocagrande.</p>
+          <div class="metric-list">
+            <div class="metric-row"><span>Cobertura local (impresiones)</span><strong>7.712</strong></div>
+            <div class="metric-row"><span>Visitas a tienda</span><strong>20</strong></div>
+            <div class="metric-row"><span>Clics de llamada</span><strong>6</strong></div>
+            <div class="metric-row"><span>Como llegar en coche</span><strong>77</strong></div>
+            <div class="metric-row"><span>Visitas al sitio web</span><strong>15</strong></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="three-col" style="margin-top: 16px;">
+        <article class="card">
+          <div class="metric-label">Donde mas buscan</div>
+          <div class="metric-value">16.347 / 7.712</div>
+          <div class="metric-note">En la vista de <strong>Tiendas</strong>, Manga concentra casi <strong>68 %</strong> de la cobertura local mostrada; Bocagrande aporta cerca de <strong>32 %</strong>.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Sede que mas mueve Como llegar</div>
+          <div class="metric-value">320 / 77</div>
+          <div class="metric-note">Manga genero cerca de <strong>81 %</strong> de los clics de direccion; Bocagrande aporto el restante <strong>19 %</strong>.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Sede que mas lleva al sitio</div>
+          <div class="metric-value">38 / 15</div>
+          <div class="metric-note">Manga tambien lidera los clics al sitio web con cerca de <strong>72 %</strong> del total; Bocagrande aporta aproximadamente <strong>28 %</strong>.</div>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Validacion entre Objetivos y Tiendas</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Como llegar</span><strong>320 + 77 = 397</strong></div>
+            <div class="metric-row"><span>Visitas a tienda</span><strong>27 + 20 = 47</strong></div>
+            <div class="metric-row"><span>Clics de llamada</span><strong>16 + 6 = 22</strong></div>
+            <div class="metric-row"><span>Visitas al sitio web</span><strong>38 + 15 = 53</strong></div>
+            <div class="metric-row"><span>Vistas del menu</span><strong>164</strong></div>
+            <div class="metric-row"><span>Otras interacciones</span><strong>1.824</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Horas pico de busqueda y accion</h3>
+          <p class="small">
+            La lectura del mapa horario de Google Ads muestra una concentracion clara en la franja de
+            <strong>mediodia</strong> y un segundo impulso al final de la tarde.
+          </p>
+          <div class="metric-list">
+            <div class="metric-row"><span>Franja principal</span><strong>11:00 a 13:00</strong></div>
+            <div class="metric-row"><span>Dias mas fuertes</span><strong>Domingo, sabado y lunes</strong></div>
+            <div class="metric-row"><span>Refuerzo secundario</span><strong>18:00 a 19:00</strong></div>
+            <div class="metric-row"><span>Lectura operativa</span><strong>Mediodia y fin de semana</strong></div>
+          </div>
+          <div class="callout warn" style="margin-top: 14px;">
+            Accion sugerida: concentrar los mayores empujes de visibilidad y capacidad operativa en
+            <strong>almuerzo</strong> y <strong>fin de semana</strong>, especialmente en <strong>Manga</strong>.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>2. 📣 Meta Ads</h2>
+          <p>Este bloque usa los valores ajustados que compartiste para <strong>Meta Ads</strong>. Aqui no se mezcla el gasto de Google: se reporta por campana y con sus metricas propias.</p>
+        </div>
+        <div class="badge neutral">Datos visibles en la captura</div>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="card">
+          <div class="metric-label">Gasto Meta</div>
+          <div class="metric-value">677.915 COP</div>
+          <div class="metric-note">Suma ajustada de las campanas del periodo. <strong>Sin IVA</strong>.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Gasto Meta con IVA</div>
+          <div class="metric-value">806.719 COP</div>
+          <div class="metric-note">Referencia contable aplicando <strong>19 %</strong> de IVA.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Campanas con gasto</div>
+          <div class="metric-value">3</div>
+          <div class="metric-note">Tres campanas muestran inversion visible en el corte.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Campanas sin gasto</div>
+          <div class="metric-value">1</div>
+          <div class="metric-note">Una campana aparece visible, pero sin inversion ni resultados.</div>
+        </article>
+      </div>
+
+      <div class="review-grid" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Campana Dia Mundial del Sushi</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Resultado visible</span><strong>Aprox. 1.200 clics en el enlace</strong></div>
+            <div class="metric-row"><span>Costo por resultado</span><strong>205 COP</strong></div>
+            <div class="metric-row"><span>Gastado</span><strong>245.480 COP</strong></div>
+            <div class="metric-row"><span>Feedback</span><strong>Manga cumplio la meta</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Campana del Dia del Padre</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Resultado visible</span><strong>26 conversaciones visibles</strong></div>
+            <div class="metric-row"><span>Costo por resultado</span><strong>8.769 COP</strong></div>
+            <div class="metric-row"><span>Gastado</span><strong>228.000 COP</strong></div>
+            <div class="metric-row"><span>Feedback</span><strong>Genero visibilidad</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Evento All You Can Eat</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Resultado visible</span><strong>153 conversaciones visibles</strong></div>
+            <div class="metric-row"><span>Costo por resultado</span><strong>1.336 COP</strong></div>
+            <div class="metric-row"><span>Gastado</span><strong>204.435 COP</strong></div>
+            <div class="metric-row"><span>Feedback</span><strong>Evento vendido completo</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Lectura comercial de Meta</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Campana mas fuerte</span><strong>Dia Mundial del Sushi</strong></div>
+            <div class="metric-row"><span>Resultado real en Manga</span><strong>100+ pedidos individuales</strong></div>
+            <div class="metric-row"><span>Resultado real en Bocagrande</span><strong>Aprox. 10 combos</strong></div>
+            <div class="metric-row"><span>Aprendizaje</span><strong>Manga responde mejor a promo directa</strong></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="two-col" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Lectura operativa de Meta</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Campana de trafico</span><strong>Dia Mundial del Sushi</strong></div>
+            <div class="metric-row"><span>Campana de mejor cierre</span><strong>All You Can Eat</strong></div>
+            <div class="metric-row"><span>Campana de mayor valor comercial</span><strong>Promo fuerte en Manga</strong></div>
+            <div class="metric-row"><span>Hallazgo clave</span><strong>La promo directa vende mejor que la visibilidad general</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>🧾 Aclaracion contable</h3>
+          <p class="small">
+            En este informe, <strong>Google Ads</strong> y <strong>Meta Ads</strong> quedan separados para que se entienda
+            en que se gasto cada canal. La pauta activa del periodo suma <strong>1.577.915 COP sin IVA</strong> o
+            <strong>1.877.719 COP con IVA</strong>.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>3. 🧭 TripAdvisor</h2>
+          <p>Se saneo la cuenta publicitaria de TripAdvisor con un saldo pendiente para poder comenzar a pautar desde el siguiente mes.</p>
+        </div>
+        <div class="badge neutral">Saldo saneado</div>
+      </div>
+
+      <div class="two-col">
+        <article class="card">
+          <div class="metric-label">Saldo pagado</div>
+          <div class="metric-value">189.149 COP</div>
+          <div class="metric-note">Equivale a un ajuste cercano a <strong>75 USD</strong>. <strong>Sin IVA</strong>.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Saldo con IVA</div>
+          <div class="metric-value">225.087 COP</div>
+          <div class="metric-note">Pago de regularizacion para dejar activa la cuenta de TripAdvisor.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>4. ⭐ Resenas por sede</h2>
+          <p>Google muestra <strong>2 sedes</strong> para Sr. Miyagi. En el rango <strong>1 de junio al 1 de julio de 2026</strong> se confirmaron <strong>87 resenas nuevas</strong>, de las cuales <strong>84 fueron positivas</strong> y <strong>84 ya fueron contestadas</strong>.</p>
+        </div>
+        <div class="badge good">2 sedes en Google</div>
+      </div>
+
+      <div class="review-grid">
+        <article class="card">
+          <h3>Sr. Miyagi Asian Fusion · Manga</h3>
+          <p class="small">Manga Cl. 24 #20-2 a 20-116, Cartagena, Bolivar</p>
+          <div class="metric-list">
+            <div class="metric-row"><span>Resenas del mes</span><strong>43</strong></div>
+            <div class="metric-row"><span>Positivas</span><strong>42</strong></div>
+            <div class="metric-row"><span>Contestadas</span><strong>41</strong></div>
+            <div class="metric-row"><span>Sin contestar</span><strong>2</strong></div>
+          </div>
+          <div class="bar-cluster">
+            <div class="bar-item">
+              <div class="bar-head"><span>Share positivo del mes</span><strong>97,7 %</strong></div>
+              <div class="track"><div class="fill green" style="width: 97.7%;"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-head"><span>Share contestado del mes</span><strong>95,3 %</strong></div>
+              <div class="track"><div class="fill gold" style="width: 95.3%;"></div></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Sr Miyagi Sushi Corner · Bocagrande</h3>
+          <p class="small">Carrera 3era #7-154 local 4, Bocagrande Casa Victoria, Cartagena, Bolivar</p>
+          <div class="metric-list">
+            <div class="metric-row"><span>Resenas del mes</span><strong>44</strong></div>
+            <div class="metric-row"><span>Positivas</span><strong>42</strong></div>
+            <div class="metric-row"><span>Contestadas</span><strong>43</strong></div>
+            <div class="metric-row"><span>Sin contestar</span><strong>1</strong></div>
+          </div>
+          <div class="bar-cluster">
+            <div class="bar-item">
+              <div class="bar-head"><span>Share positivo del mes</span><strong>95,5 %</strong></div>
+              <div class="track"><div class="fill green" style="width: 95.5%;"></div></div>
+            </div>
+            <div class="bar-item">
+              <div class="bar-head"><span>Share contestado del mes</span><strong>97,7 %</strong></div>
+              <div class="track"><div class="fill gold" style="width: 97.7%;"></div></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="three-col" style="margin-top: 16px;">
+        <article class="card">
+          <div class="metric-label">Total del mes</div>
+          <div class="metric-value">87</div>
+          <div class="metric-note">Resenas nuevas combinadas de Manga y Bocagrande.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Positivas del mes</div>
+          <div class="metric-value">84</div>
+          <div class="metric-note">Equivale a un <strong>96,6 %</strong> del total mensual.</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Contestadas del mes</div>
+          <div class="metric-value">84</div>
+          <div class="metric-note">Quedaron <strong>3</strong> resenas sin respuesta en el corte mensual.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>5. 📝 Movimiento reciente de resenas</h2>
+          <p>Rango revisado: <strong>1 de junio de 2026</strong> a <strong>1 de julio de 2026</strong>, inclusive.</p>
+        </div>
+        <div class="badge good">87 resenas nuevas visibles</div>
+      </div>
+
+      <div class="review-grid">
+        <article class="card">
+          <h3>Manga · 43 resenas nuevas</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Positivas</span><strong>42</strong></div>
+            <div class="metric-row"><span>Contestadas</span><strong>41</strong></div>
+            <div class="metric-row"><span>Sin responder</span><strong>2</strong></div>
+          </div>
+          <div class="stack">
+            <div class="seg-one" style="width: 2.33%;"></div>
+            <div class="seg-two" style="width: 0%;"></div>
+            <div class="seg-three" style="width: 0%;"></div>
+            <div class="seg-four" style="width: 0%;"></div>
+            <div class="seg-five" style="width: 97.67%;"></div>
+          </div>
+          <div class="legend">
+            <span><i class="seg-one"></i>1 estrella: 1</span>
+            <span><i class="seg-five"></i>5 estrellas: 42</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Bocagrande · 44 resenas nuevas</h3>
+          <div class="metric-list">
+            <div class="metric-row"><span>Positivas</span><strong>42</strong></div>
+            <div class="metric-row"><span>Contestadas</span><strong>43</strong></div>
+            <div class="metric-row"><span>Sin responder</span><strong>1</strong></div>
+          </div>
+          <div class="stack">
+            <div class="seg-one" style="width: 0%;"></div>
+            <div class="seg-two" style="width: 4.55%;"></div>
+            <div class="seg-three" style="width: 0%;"></div>
+            <div class="seg-four" style="width: 2.27%;"></div>
+            <div class="seg-five" style="width: 93.18%;"></div>
+          </div>
+          <div class="legend">
+            <span><i class="seg-two"></i>2 estrellas: 2</span>
+            <span><i class="seg-four"></i>4 estrellas: 1</span>
+            <span><i class="seg-five"></i>5 estrellas: 41</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>6. 🤝 Manejo dado a las resenas</h2>
+          <p>Patron dominante observado en las respuestas visibles de las 2 sedes.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <article class="card">
+          <h3>Resenas positivas</h3>
+          <div class="badge good">Manejo predominante</div>
+          <div class="quote">
+            <strong>Agradecimiento + invitacion a volver.</strong><br />
+            La respuesta suele reforzar la experiencia, destacar el servicio o el ambiente y cerrar con una invitacion a regresar.
+          </div>
+          <div class="metric-list">
+            <div class="metric-row"><span>Manga</span><strong>1.321 respuestas de este tipo</strong></div>
+            <div class="metric-row"><span>Bocagrande</span><strong>207 respuestas de este tipo</strong></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Resenas negativas o sensibles</h3>
+          <div class="badge warn">Manejo observado</div>
+          <div class="quote">
+            <strong>Contencion, disculpa y seguimiento.</strong><br />
+            Cuando hay friccion, la linea visible apunta a reconocer el problema, bajar tension y dejar abierta una salida de mejora.
+          </div>
+          <div class="metric-list">
+            <div class="metric-row"><span>Manga</span><strong>14 respuestas de contencion</strong></div>
+            <div class="metric-row"><span>Bocagrande</span><strong>3 respuestas de contencion</strong></div>
+            <div class="metric-row"><span>Seguimiento/mejora</span><strong>8 en Manga · 3 en Bocagrande</strong></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>7. 🚨 Acciones inmediatas sobre resenas</h2>
+          <p>Casos concretos que conviene resolver rapido para proteger conversion y reputacion.</p>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <article class="card">
+          <h3>Resena sin responder · Manga</h3>
+          <div class="badge risk">1 estrella</div>
+          <div class="metric-note" style="margin-top: 10px;">
+            <strong>Hania Barcenas</strong> · 28 de junio de 2026
+          </div>
+          <div class="quote">
+            Reporta que pidio un domicilio y que el sushi llego practicamente sin salmon y con mal sabor.
+          </div>
+          <div class="callout risk" style="margin-top: 14px;">
+            Recomendacion: responder con disculpa directa, reconocer la falla del producto y abrir canal de compensacion o reposicion.
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Resena sin responder · Bocagrande</h3>
+          <div class="badge risk">2 estrellas</div>
+          <div class="metric-note" style="margin-top: 10px;">
+            <strong>Yael Dekel</strong> · 13 de junio de 2026
+          </div>
+          <div class="quote">
+            La queja habla de espera mayor a 40 minutos, precio alto, musica fuerte, servicio lento y mala percepcion del sabor.
+          </div>
+          <div class="callout risk" style="margin-top: 14px;">
+            Recomendacion: responder con contencion, asumir el problema operativo y mostrar accion correctiva sobre tiempos y servicio.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>8. 🚀 Plan de ventas para el siguiente mes</h2>
+        </div>
+      </div>
+
+      <div class="three-col">
+        <article class="card">
+          <h3>Promociones diarias siempre visibles</h3>
+          <p class="small">
+            Subir el peso de Google y Meta hacia piezas de <strong>promo del dia</strong>, oferta puntual y llamados claros a pedir o reservar.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Respuesta automatica inicial</h3>
+          <p class="small">
+            Implementar una herramienta intermedia para enviar el <strong>primer mensaje</strong>, bajar el lag de respuesta y captar datos de contacto.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Venta por canal y por sede</h3>
+          <p class="small">
+            El siguiente corte debe medir ventas en <strong>Google</strong>, <strong>Meta</strong> y <strong>TripAdvisor</strong>, priorizando promociones que ya mostraron respuesta fuerte en <strong>Manga</strong>.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer">
+      Fuente de datos usada en este informe: Google Ads revisado en Chrome, ajustes de gasto y resultados compartidos para Meta Ads y TripAdvisor, y Zernio/Google Business accesible en esta sesion.
+      Nota metodologica: el rango de Ads corresponde al corte visible del panel (<strong>1 al 30 de junio de 2026</strong>);
+      el rango de resenas se llevo hasta la fecha actual de la sesion (<strong>1 de julio de 2026</strong>).
+      El valor de <strong>900.000 COP</strong> corresponde solo a <strong>Google Ads</strong>, <strong>sin IVA</strong>.
+      La pauta activa del periodo en <strong>Google + Meta</strong> asciende a <strong>1.877.719 COP con IVA</strong>.
+      El saneamiento de <strong>TripAdvisor</strong> suma <strong>225.087 COP con IVA</strong>, para un total general de <strong>2.102.806 COP con IVA</strong>.
+    </div>
+  </div>
+</body>
+</html>
