@@ -48,16 +48,16 @@ body::before {
 
 .page-shell {
   position: relative;
-  width: min(1160px, calc(100% - 32px));
+  width: min(100% - 20px, 520px);
   margin: 0 auto;
-  padding: 32px 0 56px;
+  padding: 20px 0 40px;
 }
 
 .hero {
   display: grid;
-  grid-template-columns: 1.6fr 0.9fr;
-  gap: 24px;
-  margin-bottom: 24px;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .hero-copy,
@@ -70,7 +70,7 @@ body::before {
 }
 
 .hero-copy {
-  padding: 32px;
+  padding: 20px;
   border-radius: var(--radius-xl);
 }
 
@@ -92,24 +92,23 @@ body::before {
 }
 
 .hero-copy h1 {
-  max-width: 12ch;
-  font-size: clamp(2.3rem, 5vw, 4.5rem);
-  line-height: 0.94;
+  max-width: 10ch;
+  font-size: clamp(2.1rem, 12vw, 3rem);
+  line-height: 0.92;
 }
 
 .lede {
-  max-width: 58ch;
-  margin: 18px 0 0;
-  font-size: 1.02rem;
-  line-height: 1.7;
+  margin: 16px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
   color: var(--muted);
 }
 
 .hero-card {
   border-radius: var(--radius-xl);
-  padding: 24px;
+  padding: 20px;
   display: grid;
-  gap: 14px;
+  gap: 12px;
   align-content: start;
   background:
     linear-gradient(180deg, rgba(255, 250, 243, 0.95), rgba(255, 246, 236, 0.82)),
@@ -117,11 +116,9 @@ body::before {
 }
 
 .hero-stat {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px 18px;
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(63, 42, 20, 0.08);
@@ -158,26 +155,24 @@ body::before {
 
 .portal-layout {
   display: grid;
-  grid-template-columns: 340px minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 16px;
   align-items: start;
 }
 
 .panel {
   border-radius: var(--radius-xl);
-  padding: 24px;
+  padding: 20px;
 }
 
 .panel-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 22px;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .panel-header h2 {
-  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-size: clamp(1.4rem, 7vw, 1.9rem);
 }
 
 .access-form {
@@ -227,6 +222,7 @@ body::before {
 
 .primary-button {
   min-height: 54px;
+  width: 100%;
   padding: 0 18px;
   color: #fff8f1;
   background: linear-gradient(135deg, var(--brand) 0%, var(--brand-strong) 100%);
@@ -241,6 +237,7 @@ body::before {
 
 .ghost-button {
   min-height: 44px;
+  width: 100%;
   padding: 0 16px;
   color: var(--accent);
   background: rgba(36, 85, 82, 0.1);
@@ -280,9 +277,9 @@ body::before {
   width: 100%;
   padding: 18px 20px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 16px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: start;
   border: 0;
   background: transparent;
   color: inherit;
@@ -313,6 +310,7 @@ body::before {
   color: var(--brand-strong);
   font-size: 1.2rem;
   font-weight: 800;
+  justify-self: start;
 }
 
 .timeline-body {
@@ -336,9 +334,9 @@ body::before {
 
 .doc-card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 14px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: start;
   padding: 16px;
   border-radius: 16px;
   background: linear-gradient(180deg, rgba(255, 252, 246, 0.96), rgba(255, 247, 237, 0.84));
@@ -360,7 +358,7 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 112px;
+  width: 100%;
   min-height: 44px;
   padding: 0 16px;
   text-decoration: none;
@@ -373,34 +371,4 @@ body::before {
   padding: 18px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.68);
-}
-
-@media (max-width: 980px) {
-  .hero,
-  .portal-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .page-shell {
-    width: min(100% - 20px, 1160px);
-    padding: 20px 0 40px;
-  }
-
-  .hero-copy,
-  .hero-card,
-  .panel {
-    padding: 20px;
-    border-radius: 22px;
-  }
-
-  .timeline-button,
-  .doc-card {
-    grid-template-columns: 1fr;
-  }
-
-  .doc-link {
-    width: 100%;
-  }
 }
