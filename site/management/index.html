@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Management | Portal de informes</title>
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <section class="hero">
+        <p class="eyebrow">Management</p>
+        <h1>Administrar clientes</h1>
+        <p class="lede">Carga documentos, cambia claves y organiza el historial por mes.</p>
+      </section>
+
+      <main class="portal-layout">
+        <section class="panel" id="admin-login-panel">
+          <div class="panel-header">
+            <p class="panel-kicker">Ingreso</p>
+            <h2>Acceso administrativo</h2>
+          </div>
+
+          <form id="admin-login-form" class="access-form">
+            <label class="field">
+              <span class="field-label">Correo</span>
+              <input id="admin-email" class="field-control" type="email" autocomplete="username" />
+            </label>
+            <label class="field">
+              <span class="field-label">Contrasena</span>
+              <input id="admin-password" class="field-control" type="password" autocomplete="current-password" />
+            </label>
+            <button type="submit" class="primary-button">Entrar</button>
+            <p id="admin-login-feedback" class="access-feedback" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel hidden" id="admin-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Panel</p>
+              <h2>Subir documentos y cambiar claves</h2>
+            </div>
+            <button id="admin-logout" class="ghost-button" type="button">Cerrar sesion</button>
+          </div>
+
+          <form id="pin-form" class="access-form">
+            <label class="field">
+              <span class="field-label">Cliente</span>
+              <select id="admin-client-select" class="field-control"></select>
+            </label>
+            <div class="access-row">
+              <label class="field field--compact">
+                <span class="field-label">Nueva clave de 4 digitos</span>
+                <input id="admin-client-pin" class="field-control field-control--pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••" />
+              </label>
+              <button type="submit" class="primary-button">Guardar clave</button>
+            </div>
+            <p id="pin-feedback" class="access-feedback" aria-live="polite"></p>
+          </form>
+
+          <form id="upload-form" class="access-form admin-form-block">
+            <label class="field">
+              <span class="field-label">Mes</span>
+              <input id="report-month" class="field-control" type="month" />
+            </label>
+            <label class="field">
+              <span class="field-label">Titulo opcional</span>
+              <input id="report-title" class="field-control" type="text" placeholder="Se detecta automaticamente si lo dejas vacio" />
+            </label>
+            <label class="field">
+              <span class="field-label">Descripcion opcional</span>
+              <textarea id="report-description" class="field-control field-control--textarea" placeholder="Resumen breve para el cliente"></textarea>
+            </label>
+            <label class="field">
+              <span class="field-label">Documentos</span>
+              <input id="report-files" class="field-control field-control--file" type="file" accept=".html,.pdf" multiple />
+            </label>
+            <button type="submit" class="primary-button">Subir documentos</button>
+            <p id="upload-feedback" class="access-feedback" aria-live="polite"></p>
+          </form>
+
+          <section class="admin-history">
+            <div class="panel-header panel-header--compact">
+              <div>
+                <p class="panel-kicker">Vista rapida</p>
+                <h2>Historial del cliente</h2>
+              </div>
+            </div>
+            <div id="admin-history-list" class="timeline"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="/assets/management.js"></script>
+  </body>
+</html>

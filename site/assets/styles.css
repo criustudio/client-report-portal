@@ -1,8 +1,8 @@
 :root {
-  --bg: #f4f4f5;
+  --bg: #f5f5f5;
   --surface: #ffffff;
   --surface-soft: #fafafa;
-  --line: #e5e7eb;
+  --line: #e4e4e7;
   --line-strong: #d4d4d8;
   --text: #18181b;
   --muted: #71717a;
@@ -25,11 +25,11 @@ body {
 body {
   font-family: "Manrope", sans-serif;
   color: var(--text);
-  background: linear-gradient(180deg, #fcfcfc 0%, var(--bg) 100%);
+  background: linear-gradient(180deg, #fdfdfd 0%, var(--bg) 100%);
 }
 
 .page-shell {
-  width: min(100% - 20px, 520px);
+  width: min(100% - 20px, 540px);
   margin: 0 auto;
   padding: 24px 0 40px;
 }
@@ -122,6 +122,10 @@ body {
   margin-bottom: 18px;
 }
 
+.panel-header--compact {
+  margin-bottom: 14px;
+}
+
 .panel-header h2 {
   font-size: clamp(1.4rem, 7vw, 1.9rem);
 }
@@ -166,6 +170,16 @@ body {
 .field-control--pin {
   letter-spacing: 0.24em;
   text-align: center;
+}
+
+.field-control--textarea {
+  min-height: 120px;
+  padding: 14px 16px;
+  resize: vertical;
+}
+
+.field-control--file {
+  padding: 12px 14px;
 }
 
 .access-row {
@@ -317,4 +331,12 @@ body {
   border-radius: 16px;
   background: #ffffff;
   border: 1px solid var(--line);
+}
+
+.admin-form-block {
+  margin-top: 18px;
+}
+
+.admin-history {
+  margin-top: 18px;
 }

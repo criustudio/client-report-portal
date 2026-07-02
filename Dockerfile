@@ -1,3 +1,15 @@
-FROM nginx:1.27-alpine
+FROM node:22-alpine
 
-COPY site /usr/share/nginx/html
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY . .
+
+ENV PORT=80
+ENV DATA_DIR=/app/data
+
+EXPOSE 80
+
+CMD ["node", "server.mjs"]

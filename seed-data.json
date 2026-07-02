@@ -1,0 +1,76 @@
+{
+  "clients": [
+    {
+      "id": "sr-miyagi",
+      "name": "SR. MIYAGI",
+      "pin": "0102",
+      "reports": [
+        {
+          "id": "seed-campaigns-june-2026",
+          "month": "2026-06",
+          "monthTitle": "JUNIO 2026",
+          "rangeLabel": "Del 1 de junio al 30 de junio de 2026",
+          "title": "INFORME DE CAMPANAS",
+          "description": "Google Ads, Meta Ads, TripAdvisor y resenas del mes.",
+          "displayType": "INFORME DINAMICO",
+          "fileKind": "html",
+          "url": "/reports/sr-miyagi/2026-06/informe-campanas.html",
+          "createdAt": "2026-07-01T23:00:00.000Z"
+        },
+        {
+          "id": "seed-social-june-2026",
+          "month": "2026-06",
+          "monthTitle": "JUNIO 2026",
+          "rangeLabel": "Del 1 de junio al 30 de junio de 2026",
+          "title": "INFORME DE REDES",
+          "description": "Instagram y TikTok con interacciones y visibilidad.",
+          "displayType": "INFORME DINAMICO",
+          "fileKind": "html",
+          "url": "/reports/sr-miyagi/2026-06/informe-redes.html",
+          "createdAt": "2026-07-01T23:00:00.000Z"
+        },
+        {
+          "id": "seed-general-pdf-june-2026",
+          "month": "2026-06",
+          "monthTitle": "JUNIO 2026",
+          "rangeLabel": "Del 1 de junio al 30 de junio de 2026",
+          "title": "INFORME GENERAL",
+          "description": "Version descargable para compartir o archivar.",
+          "displayType": "PDF",
+          "fileKind": "pdf",
+          "url": "/reports/sr-miyagi/2026-06/informe-general.pdf",
+          "createdAt": "2026-07-01T23:00:00.000Z"
+        }
+      ]
+    },
+    { "id": "agencia-nomadea", "name": "AGENCIA NOMADEA", "pin": "", "reports": [] },
+    { "id": "ambar-ph", "name": "AMBAR PH", "pin": "", "reports": [] },
+    { "id": "astemar", "name": "ASTEMAR", "pin": "", "reports": [] },
+    { "id": "aurea-maestros-antiguos", "name": "AUREA MAESTROS ANTIGUOS", "pin": "", "reports": [] },
+    { "id": "biffi", "name": "BIFFI", "pin": "", "reports": [] },
+    { "id": "bio-water-group", "name": "BIO WATER GROUP", "pin": "", "reports": [] },
+    { "id": "cafe-y-lupulo", "name": "CAFE Y LUPULO", "pin": "", "reports": [] },
+    { "id": "caribe-express", "name": "CARIBE EXPRESS", "pin": "", "reports": [] },
+    { "id": "ensalud", "name": "ENSALUD", "pin": "", "reports": [] },
+    { "id": "force-deportes", "name": "FORCE DEPORTES", "pin": "", "reports": [] },
+    { "id": "frava", "name": "FRAVA", "pin": "", "reports": [] },
+    { "id": "fun-games", "name": "FUN GAMES", "pin": "", "reports": [] },
+    { "id": "fundacion-principito", "name": "FUNDACION PRINCIPITO", "pin": "", "reports": [] },
+    { "id": "grupo-guipalbar-sas", "name": "GRUPO GUIPALBAR SAS", "pin": "", "reports": [] },
+    { "id": "grupo-quimar", "name": "GRUPO QUIMAR", "pin": "", "reports": [] },
+    { "id": "juve", "name": "JUVE", "pin": "", "reports": [] },
+    { "id": "kbtsol", "name": "KBTSOL", "pin": "", "reports": [] },
+    { "id": "marcas-market", "name": "MARCAS MARKET", "pin": "", "reports": [] },
+    { "id": "maradona-vive", "name": "MARADONA VIVE", "pin": "", "reports": [] },
+    { "id": "mascovet", "name": "MASCOVET", "pin": "", "reports": [] },
+    { "id": "peptix", "name": "PEPTIX", "pin": "", "reports": [] },
+    { "id": "pragavet", "name": "PRAGAVET", "pin": "", "reports": [] },
+    { "id": "progan-caribbean", "name": "PROGAN CARIBBEAN", "pin": "", "reports": [] },
+    { "id": "puerto-mojarra", "name": "PUERTO MOJARRA", "pin": "", "reports": [] },
+    { "id": "pulido", "name": "PULIDO", "pin": "", "reports": [] },
+    { "id": "soraly-arteaga", "name": "SORALY ARTEAGA", "pin": "", "reports": [] },
+    { "id": "tendencias", "name": "TENDENCIAS", "pin": "", "reports": [] },
+    { "id": "tiri", "name": "TIRI", "pin": "", "reports": [] },
+    { "id": "tripcaribe", "name": "TRIPCARIBE", "pin": "", "reports": [] }
+  ]
+}
