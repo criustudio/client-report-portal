@@ -1,10 +1,62 @@
+const CLIENT_NAMES = [
+  "Sr. Miyagi",
+  "AGENCIA NOMADEA",
+  "AMBAR PH",
+  "ASTEMAR",
+  "AUREA MAESTROS ANTIGUOS",
+  "BIFFI",
+  "BIO WATER GROUP",
+  "CAFE Y LUPULO",
+  "CAR WASH",
+  "CARIBE EXPRESS",
+  "CRIUDIGITAL",
+  "DIVING & ADVENTURE",
+  "EMELY - MARCA PERSONAL",
+  "ENSALUD",
+  "FORCE DEPORTES",
+  "FOTOS ESTUDIO COLECCION VERSALLES 2022",
+  "FRAVA",
+  "FUN GAMES",
+  "FUNDACION PRINCIPITO",
+  "GRUPO GUIPALBAR SAS",
+  "GRUPO QUIMAR 2025",
+  "JUVE",
+  "KBTSOL",
+  "MARCAS MARKET",
+  "MARADONA VIVE",
+  "Margoth Reposteria",
+  "MASCOVET",
+  "PEPTIX",
+  "PRAGAVET",
+  "PROGAN CARIBBEAN",
+  "PUERTO MOJARRA",
+  "PULIDO",
+  "SORALY ARTEAGA",
+  "TENDENCIAS",
+  "TIRI",
+  "TOURISM WEB",
+  "TRIPCARIBE",
+];
+
+function slugifyClientName(value) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 const REPORT_PORTAL_DATA = {
-  clients: [
-    {
+  clients: CLIENT_NAMES.map((name) => ({
+    id: slugifyClientName(name),
+    name,
+  })),
+  portalClients: {
+    "sr-miyagi": {
       id: "sr-miyagi",
       name: "Sr. Miyagi",
-      pin: "01-02",
-      note: "Acceso activo para este cliente",
+      pin: "0102",
       months: [
         {
           id: "2026-06",
@@ -36,76 +88,7 @@ const REPORT_PORTAL_DATA = {
         },
       ],
     },
-  ],
-  portfolioSections: [
-    {
-      id: "keyed",
-      title: "Cliente con clave propia",
-      caption: "Cliente con acceso individual listo para abrir su historial mensual.",
-      badgeClass: "portfolio-badge--live",
-      badgeLabel: "Con clave",
-      items: [
-        {
-          name: "Sr. Miyagi",
-          meta: "Cliente activo con panel disponible y acceso por clave propia.",
-        },
-      ],
-    },
-    {
-      id: "active-a",
-      title: "Clientes activos",
-      caption: "Cartera activa visible dentro del portal. Estas cuentas estan vigentes aunque aun no tengan panel individual publicado.",
-      badgeClass: "portfolio-badge--listed",
-      badgeLabel: "Activo",
-      items: [
-        { name: "AGENCIA NOMADEA", meta: "Cliente activo" },
-        { name: "AMBAR PH", meta: "Cliente activo" },
-        { name: "ASTEMAR", meta: "Cliente activo" },
-        { name: "AUREA MAESTROS ANTIGUOS", meta: "Cliente activo" },
-        { name: "BIFFI", meta: "Cliente activo" },
-        { name: "BIO WATER GROUP", meta: "Cliente activo" },
-        { name: "CAFE Y LUPULO", meta: "Cliente activo" },
-        { name: "CAR WASH", meta: "Cliente activo" },
-        { name: "CARIBE EXPRESS", meta: "Cliente activo" },
-        { name: "CRIUDIGITAL", meta: "Cliente activo" },
-        { name: "DIVING & ADVENTURE", meta: "Cliente activo" },
-        { name: "EMELY - MARCA PERSONAL", meta: "Cliente activo" },
-        { name: "ENSALUD", meta: "Cliente activo" },
-        { name: "FORCE DEPORTES", meta: "Cliente activo" },
-        { name: "FOTOS ESTUDIO COLECCION VERSALLES 2022", meta: "Cliente activo" },
-        { name: "FRAVA", meta: "Cliente activo" },
-        { name: "FUN GAMES", meta: "Cliente activo" },
-        { name: "FUNDACION PRINCIPITO", meta: "Cliente activo" },
-      ],
-    },
-    {
-      id: "active-b",
-      title: "Mas clientes activos",
-      caption: "Listado adicional de cuentas vigentes dentro de la cartera actual.",
-      badgeClass: "portfolio-badge--listed",
-      badgeLabel: "Activo",
-      items: [
-        { name: "GRUPO GUIPALBAR SAS", meta: "Cliente activo" },
-        { name: "GRUPO QUIMAR 2025", meta: "Cliente activo" },
-        { name: "JUVE", meta: "Cliente activo" },
-        { name: "KBTSOL", meta: "Cliente activo" },
-        { name: "MARCAS MARKET", meta: "Cliente activo" },
-        { name: "MARADONA VIVE", meta: "Cliente activo" },
-        { name: "Margoth Reposteria", meta: "Cliente activo" },
-        { name: "MASCOVET", meta: "Cliente activo" },
-        { name: "PEPTIX", meta: "Cliente activo" },
-        { name: "PRAGAVET", meta: "Cliente activo" },
-        { name: "PROGAN CARIBBEAN", meta: "Cliente activo" },
-        { name: "PUERTO MOJARRA", meta: "Cliente activo" },
-        { name: "PULIDO", meta: "Cliente activo" },
-        { name: "SORALY ARTEAGA", meta: "Cliente activo" },
-        { name: "TENDENCIAS", meta: "Cliente activo" },
-        { name: "TIRI", meta: "Cliente activo" },
-        { name: "TOURISM WEB", meta: "Cliente activo" },
-        { name: "TRIPCARIBE", meta: "Cliente activo" },
-      ],
-    },
-  ],
+  },
 };
 
 const clientSelect = document.querySelector("#client-select");
@@ -114,17 +97,18 @@ const accessForm = document.querySelector("#access-form");
 const accessFeedback = document.querySelector("#access-feedback");
 const clientPanel = document.querySelector("#client-panel");
 const clientName = document.querySelector("#client-name");
-const clientSummary = document.querySelector("#client-summary");
 const timeline = document.querySelector("#timeline");
 const signOutButton = document.querySelector("#sign-out");
 const heroClientCount = document.querySelector("#hero-client-count");
-const heroReportCount = document.querySelector("#hero-report-count");
-const portfolioSections = document.querySelector("#portfolio-sections");
 
 const sessionKey = "report-portal-active-client";
 
 function getClientById(clientId) {
   return REPORT_PORTAL_DATA.clients.find((client) => client.id === clientId);
+}
+
+function getPortalClientById(clientId) {
+  return REPORT_PORTAL_DATA.portalClients[clientId] ?? null;
 }
 
 function buildOption(client) {
@@ -135,79 +119,13 @@ function buildOption(client) {
 }
 
 function renderStats() {
-  const clientCount = REPORT_PORTAL_DATA.portfolioSections.reduce((total, section) => {
-    return total + section.items.length;
-  }, 0);
-  const reportCount = REPORT_PORTAL_DATA.clients.reduce((total, client) => {
-    return (
-      total +
-      client.months.reduce((monthTotal, month) => monthTotal + month.documents.length, 0)
-    );
-  }, 0);
-
-  heroClientCount.textContent = String(clientCount);
-  heroReportCount.textContent = String(reportCount);
+  heroClientCount.textContent = String(REPORT_PORTAL_DATA.clients.length);
 }
 
 function renderClientSelector() {
-  clientSelect.innerHTML = "";
+  clientSelect.innerHTML = '<option value="">Selecciona un cliente</option>';
   REPORT_PORTAL_DATA.clients.forEach((client) => {
     clientSelect.appendChild(buildOption(client));
-  });
-}
-
-function createPortfolioItem(item, badgeClass, badgeLabel) {
-  const article = document.createElement("article");
-  article.className = "portfolio-item";
-
-  const top = document.createElement("div");
-  top.className = "portfolio-item-top";
-
-  const name = document.createElement("div");
-  name.className = "portfolio-name";
-  name.textContent = item.name;
-
-  const badge = document.createElement("span");
-  badge.className = `portfolio-badge ${badgeClass}`;
-  badge.textContent = badgeLabel;
-
-  top.append(name, badge);
-
-  const meta = document.createElement("p");
-  meta.className = "portfolio-meta";
-  meta.textContent = item.meta;
-
-  article.append(top, meta);
-  return article;
-}
-
-function renderPortfolioSections() {
-  portfolioSections.innerHTML = "";
-
-  REPORT_PORTAL_DATA.portfolioSections.forEach((section) => {
-    const wrapper = document.createElement("section");
-    wrapper.className = "portfolio-group";
-
-    const heading = document.createElement("div");
-    const title = document.createElement("h3");
-    title.className = "portfolio-heading";
-    title.textContent = section.title;
-
-    const caption = document.createElement("p");
-    caption.className = "portfolio-caption";
-    caption.textContent = section.caption;
-
-    heading.append(title, caption);
-
-    const list = document.createElement("div");
-    list.className = "portfolio-list";
-
-    section.items.forEach((item) => {
-      list.appendChild(createPortfolioItem(item, section.badgeClass, section.badgeLabel));
-    });
-
-    wrapper.append(heading, list);
-    portfolioSections.appendChild(wrapper);
   });
 }
 
@@ -292,23 +210,7 @@ function createTimelineItem(month, openByDefault = false) {
 
 function renderClientPanel(client) {
   clientName.textContent = client.name;
-  clientSummary.innerHTML = "";
   timeline.innerHTML = "";
-
-  const chipMonths = document.createElement("span");
-  chipMonths.className = "summary-chip";
-  chipMonths.textContent = `${client.months.length} periodo${client.months.length === 1 ? "" : "s"}`;
-
-  const totalDocs = client.months.reduce((total, month) => total + month.documents.length, 0);
-  const chipDocs = document.createElement("span");
-  chipDocs.className = "summary-chip";
-  chipDocs.textContent = `${totalDocs} documento${totalDocs === 1 ? "" : "s"}`;
-
-  const chipNote = document.createElement("span");
-  chipNote.className = "summary-chip";
-  chipNote.textContent = client.note;
-
-  clientSummary.append(chipMonths, chipDocs, chipNote);
 
   client.months.forEach((month, index) => {
     timeline.appendChild(createTimelineItem(month, index === 0));
@@ -318,41 +220,56 @@ function renderClientPanel(client) {
 }
 
 function unlockClient(clientId) {
-  const client = getClientById(clientId);
-  if (!client) {
-    accessFeedback.textContent = "No pudimos encontrar ese cliente.";
+  const portalClient = getPortalClientById(clientId);
+  if (!portalClient) {
+    accessFeedback.textContent =
+      "Este cliente activo aun no tiene acceso individual publicado.";
+    clientPanel.classList.add("hidden");
+    sessionStorage.removeItem(sessionKey);
     return;
   }
 
-  sessionStorage.setItem(sessionKey, client.id);
-  renderClientPanel(client);
-  accessFeedback.textContent = `Acceso correcto para ${client.name}.`;
+  sessionStorage.setItem(sessionKey, portalClient.id);
+  renderClientPanel(portalClient);
+  accessFeedback.textContent = `Acceso correcto para ${portalClient.name}.`;
 }
 
 accessForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const client = getClientById(clientSelect.value);
+
+  const clientId = clientSelect.value;
+  const selectedClient = getClientById(clientId);
+  const portalClient = getPortalClientById(clientId);
   const pin = pinInput.value.trim();
 
-  if (!client) {
-    accessFeedback.textContent = "Selecciona un cliente valido.";
+  if (!selectedClient) {
+    accessFeedback.textContent = "Selecciona un cliente.";
+    clientPanel.classList.add("hidden");
     return;
   }
 
-  if (!pin) {
-    accessFeedback.textContent = "Ingresa la clave del cliente.";
+  if (!portalClient) {
+    accessFeedback.textContent =
+      "Este cliente activo aun no tiene acceso individual publicado.";
+    clientPanel.classList.add("hidden");
     return;
   }
 
-  if (pin !== client.pin) {
-    accessFeedback.textContent = "PIN incorrecto.";
+  if (!/^[0-9]{4}$/.test(pin)) {
+    accessFeedback.textContent = "Ingresa un codigo de seguridad de 4 digitos.";
+    clientPanel.classList.add("hidden");
     return;
   }
 
-  unlockClient(client.id);
+  if (pin !== portalClient.pin) {
+    accessFeedback.textContent = "Codigo de seguridad incorrecto.";
+    clientPanel.classList.add("hidden");
+    return;
+  }
+
+  unlockClient(portalClient.id);
   pinInput.value = "";
-}
-);
+});
 
 signOutButton.addEventListener("click", () => {
   sessionStorage.removeItem(sessionKey);
@@ -366,18 +283,17 @@ function restoreSession() {
     return;
   }
 
-  const client = getClientById(activeClientId);
-  if (!client) {
+  const portalClient = getPortalClientById(activeClientId);
+  if (!portalClient) {
     sessionStorage.removeItem(sessionKey);
     return;
   }
 
-  clientSelect.value = client.id;
-  renderClientPanel(client);
-  accessFeedback.textContent = `Sesion restaurada para ${client.name}.`;
+  clientSelect.value = portalClient.id;
+  renderClientPanel(portalClient);
+  accessFeedback.textContent = `Sesion restaurada para ${portalClient.name}.`;
 }
 
 renderStats();
 renderClientSelector();
-renderPortfolioSections();
 restoreSession();
